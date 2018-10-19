@@ -6,6 +6,9 @@ import java.awt.*;
 class Main {
     private JFrame frame;
     private MyPanel graph;
+    private JPanel inputPanel;
+    private JTextField slopeInput, interceptInput;
+    
     public static void main (String args[]) {
         new Main().setUpGUI();
     }
@@ -18,7 +21,30 @@ class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         graph = new MyPanel();
+        
+        //Making the input side
+        inputPanel = new JPanel ();
+        inputPanel.setLayout( new BoxLayout(inputPanel, BoxLayout.Y_AXIS) );
+        
+        JLabel firstLabel = new JLabel ("y = ");
+        slopeInput = new JTextField ();
+        JLabel secondLabel = new JLabel ("x + ");
+        interceptInput = new JTextField();
+        
+        Box inputBox = new Box(BoxLayout.X_AXIS);//To hold the input area
+        inputBox.add(firstLabel);
+        inputBox.add(slopeInput);
+        inputBox.add(secondLabel);
+        inputBox.add(interceptInput);
+        
+        JButton graphButton = new JButton ("Graph");
+        
+        inputPanel.add(inputBox);
+        inputPanel.add(graphButton);
+        
+        //Adding everything to the frame
         frame.getContentPane().add(BorderLayout.CENTER, graph);
+        frame.getContentPane().add(BorderLayout.SOUTH, inputPanel);
     }
     
     //Custom Panel
