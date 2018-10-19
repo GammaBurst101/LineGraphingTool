@@ -43,8 +43,8 @@ class Main {
         inputPanel.add(graphButton);
         
         //Adding everything to the frame
-        frame.getContentPane().add(BorderLayout.CENTER, graph);
-        frame.getContentPane().add(BorderLayout.SOUTH, inputPanel);
+        frame.add(BorderLayout.CENTER, graph);
+        frame.add(BorderLayout.SOUTH, inputPanel);
     }
     
     //Custom Panel
