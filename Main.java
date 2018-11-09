@@ -69,6 +69,9 @@ class Main {
             try {
                 int m = Integer.parseInt( slopeInput.getText() );
                 int c = Integer.parseInt( interceptInput.getText() );
+                
+                c *= 10;// So that if c = 10, the graph will plot it at 100 making it look good
+                
                 //Coordinates for the end point in normal way
                 int tempY1 = graph.getHeight()/2, tempY2 = - tempY1;
                 int tempX1 = (tempY1 - c)/m;
