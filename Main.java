@@ -30,7 +30,12 @@ class Main {
         //Making the input part
         inputPanel = new JPanel ();
         inputPanel.setLayout( new BoxLayout(inputPanel, BoxLayout.Y_AXIS) );
-
+        
+        //Separating the graph from the input panel
+        JSeparator separator = new JSeparator();
+        inputPanel.add(separator);
+        inputPanel.add(Box.createVerticalStrut(5));
+        
         //Text input
         JLabel firstLabel = new JLabel ("y = ");
         slopeInput = new JTextField ();
