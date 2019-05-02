@@ -30,30 +30,35 @@ class Main {
         //Making the input part
         inputPanel = new JPanel ();
         inputPanel.setLayout( new BoxLayout(inputPanel, BoxLayout.Y_AXIS) );
-        
+
         //Separating the graph from the input panel
         JSeparator separator = new JSeparator();
         inputPanel.add(separator);
-        inputPanel.add(Box.createVerticalStrut(5));
-        
+        inputPanel.add(Box.createVerticalStrut(10));
+
         //Text input
         JLabel firstLabel = new JLabel ("y = ");
         slopeInput = new JTextField ();
-        JLabel secondLabel = new JLabel ("x + ");
+        JLabel secondLabel = new JLabel (" x + ");
         interceptInput = new JTextField();
 
         Box inputBox = new Box(BoxLayout.X_AXIS);//To hold the input area
+        inputBox.add(Box.createHorizontalStrut(20));
         inputBox.add(firstLabel);
         inputBox.add(slopeInput);
         inputBox.add(secondLabel);
         inputBox.add(interceptInput);
+        inputBox.add(Box.createHorizontalStrut(20));
 
         //Button for input
         JButton graphButton = new JButton ("Graph");
         graphButton.addActionListener (new ButtonListener ());
 
+        //Adding to the input panel
         inputPanel.add(inputBox);
+        inputPanel.add(Box.createVerticalStrut(10));
         inputPanel.add(graphButton);
+        inputPanel.add(Box.createVerticalStrut(10));
 
         //Adding everything to the frame
         frame.add(BorderLayout.CENTER, graph);
@@ -74,9 +79,9 @@ class Main {
             try {
                 int m = Integer.parseInt( slopeInput.getText() );
                 int c = Integer.parseInt( interceptInput.getText() );
-                
+
                 c *= 10;// So that if c = 10, the graph will plot it at 100 making it look good
-                
+
                 //Coordinates for the end point in normal way
                 int tempY1 = graph.getHeight()/2, tempY2 = - tempY1;
                 int tempX1 = (tempY1 - c)/m;
