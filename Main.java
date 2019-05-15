@@ -32,19 +32,22 @@ class Main {
         inputPanel.setLayout( new BoxLayout(inputPanel, BoxLayout.Y_AXIS) );
 
         //Separating the graph from the input panel
-        JSeparator separator = new JSeparator();
-        inputPanel.add(separator);
+        inputPanel.add(new JSeparator());
         inputPanel.add(Box.createVerticalStrut(10));
 
-        //Text input
+        //Text input area
         JLabel firstLabel = new JLabel ("y = ");
         firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+        
         slopeInput = new JTextField ();
+        
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+        
         interceptInput = new JTextField();
 
-        Box inputBox = new Box(BoxLayout.X_AXIS);//To hold the input area
+        //Box to hold the input area alongwith the paddings
+        Box inputBox = new Box(BoxLayout.X_AXIS);
         inputBox.add(Box.createHorizontalStrut(20));
         inputBox.add(firstLabel);
         inputBox.add(slopeInput);
