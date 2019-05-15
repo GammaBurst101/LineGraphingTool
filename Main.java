@@ -38,8 +38,10 @@ class Main {
 
         //Text input
         JLabel firstLabel = new JLabel ("y = ");
+        firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
         slopeInput = new JTextField ();
         JLabel secondLabel = new JLabel (" x + ");
+        secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
         interceptInput = new JTextField();
 
         Box inputBox = new Box(BoxLayout.X_AXIS);//To hold the input area
