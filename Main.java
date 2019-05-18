@@ -30,6 +30,7 @@ class Main {
         //Making the input part
         inputPanel = new JPanel ();
         inputPanel.setLayout( new BoxLayout(inputPanel, BoxLayout.Y_AXIS) );
+        inputPanel.setBackground( new Color(255,255,200));
 
         //Separating the graph from the input panel
         inputPanel.add(new JSeparator());
@@ -40,11 +41,13 @@ class Main {
         firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
         
         slopeInput = new JTextField ();
+        slopeInput.setMargin(new Insets(2, 2, 2, 2));
         
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
         
         interceptInput = new JTextField();
+        interceptInput.setMargin(new Insets(2, 2, 2, 2));
 
         //Box to hold the input area alongwith the paddings
         Box inputBox = new Box(BoxLayout.X_AXIS);
@@ -58,6 +61,8 @@ class Main {
         //Button for input
         JButton graphButton = new JButton ("Graph");
         graphButton.addActionListener (new ButtonListener ());
+        graphButton.setBackground(new Color(224,224,255));
+        graphButton.setFocusPainted(false);
 
         //Adding to the input panel
         inputPanel.add(inputBox);
@@ -104,7 +109,7 @@ class Main {
             int width = this.getWidth(), height = this.getHeight();
 
             //Set background to white
-            g.setColor(new Color (255, 255, 255));
+            g.setColor(Color.WHITE);
             g.fillRect(0, 0, width, height);
 
             //Draw Axes
