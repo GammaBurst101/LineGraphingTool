@@ -39,13 +39,13 @@ class Main {
         //Text input area
         JLabel firstLabel = new JLabel ("y = ");
         firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
-        
+
         slopeInput = new JTextField ();
         slopeInput.setMargin(new Insets(2, 2, 2, 2));
-        
+
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
-        
+
         interceptInput = new JTextField();
         interceptInput.setMargin(new Insets(2, 2, 2, 2));
 
@@ -107,6 +107,7 @@ class Main {
     class MyPanel extends JPanel {
         public void paintComponent(Graphics g) {
             int width = this.getWidth(), height = this.getHeight();
+            int originX = width/2, originY = height/2;
 
             //Set background to white
             g.setColor(Color.WHITE);
@@ -117,6 +118,18 @@ class Main {
             //X-Axis
             g.setColor(new Color(0, 0, 0));
             g.drawLine(0, height/2, width, height/2);
+
+            //Markings on the x-axis
+            for (int currentMark = 1; currentMark < (width/10); currentMark++) {
+                int x = (currentMark * 10) + originX;
+                g.drawLine(x, originY - 2, x, originY + 2);//For positive x-axis
+            }
+            /*         LOGICAL ERROR HERE - It doesn't plot at the correct place (error - approx. 2px)
+            //Markings on the -x-axis
+            for (int currentMark = 1; currentMark < (width/20); currentMark++) {
+                int x = (currentMark * 10);
+                g.drawLine(x, originY - 2, x, originY + 2);//For negative x-axis
+            }*/
 
             //Y-Axis
             g.drawLine(width/2, 0, width/2, height);
