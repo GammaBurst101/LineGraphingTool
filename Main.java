@@ -75,13 +75,12 @@ class Main {
         frame.add(BorderLayout.SOUTH, inputPanel);
     }
 
-    void changeCoords (int tempX1, int tempY1, int tempX2, int tempY2) {
+    int[] changeCoords (int tempX1, int tempY1, int tempX2, int tempY2) {
         int width = graph.getWidth(), height = graph.getHeight();
-
-        x1 = tempX1 + (width/2);
-        y1 = (height/2) - tempY1;
-        x2 = tempX2 + (width/2);
-        y2 = (height/2) - tempY2;
+        
+        int[] moddedCoordinates = {tempX1 + (width/2), (height/2) - tempY1, tempX2 + (width/2), (height/2) - tempY2};
+        
+        return moddedCoordinates;
     }
 
     class ButtonListener implements ActionListener {
@@ -97,7 +96,14 @@ class Main {
                 int tempX1 = (tempY1 - c)/m;
                 int tempX2 = (tempY2 - c)/m;
 
-                Main.this.changeCoords (tempX1, tempY1, tempX2, tempY2);//Change the coordinates for the graph panel
+                int[] newCoord = Main.this.changeCoords (tempX1, tempY1, tempX2, tempY2);//Change the coordinates for the graph panel
+                
+                //Assigning the new coordinates
+                x1 = newCoord[0];
+                y1 = newCoord[1];
+                x2 = newCoord[2];
+                y2 = newCoord[3];
+                
                 graph.repaint();
             } catch (Exception er) {}
         }
