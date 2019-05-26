@@ -126,20 +126,32 @@ class Main {
             g.drawLine(0, height/2, width, height/2);
 
             //Markings on the x-axis
-            for (int currentMark = 1; currentMark < (width/10); currentMark++) {
-                int x = (currentMark * 10) + originX;
-                g.drawLine(x, originY - 2, x, originY + 2);//For positive x-axis
+            for (int i = 0; i <= (width/2); i++) {
+                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g.drawLine(coords[0], coords[1], coords[2], coords[3]);
             }
-            /*         LOGICAL ERROR HERE - It doesn't plot at the correct place (error - approx. 2px)
-            //Markings on the -x-axis
-            for (int currentMark = 1; currentMark < (width/20); currentMark++) {
-                int x = (currentMark * 10);
-                g.drawLine(x, originY - 2, x, originY + 2);//For negative x-axis
-            }*/
+            
+            // Negative x-axis markings
+            for (int i = 0; i >= - (width/2); i--) {
+                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
 
             //Y-Axis
             g.drawLine(width/2, 0, width/2, height);
+            
+            //Markings on the y-axis
+            for (int i = 0; i <= (height/2); i++) {
+                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
 
+            //Negative y-axis markings
+            for (int i = 0; i >= -(height/2); i--) {
+                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
+            
             //Draw the required line
             g.drawLine(x1, y1, x2, y2);
         }
