@@ -40,14 +40,24 @@ class Main {
         JLabel firstLabel = new JLabel ("y = ");
         firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
 
-        slopeInput = new JTextField ();
-        slopeInput.setMargin(new Insets(2, 2, 2, 2));
+        slopeInput = new JTextField ("slope");
+        slopeInput.setMargin(new Insets(4, 2, 4, 2));
+        slopeInput.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e) {
+                slopeInput.setText("");
+            }
+        });
 
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
 
-        interceptInput = new JTextField();
-        interceptInput.setMargin(new Insets(2, 2, 2, 2));
+        interceptInput = new JTextField("intercept");
+        interceptInput.setMargin(new Insets(4, 2, 4, 2));
+        interceptInput.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                interceptInput.setText("");
+            }
+        });
 
         //Box to hold the input area alongwith the paddings
         Box inputBox = new Box(BoxLayout.X_AXIS);
