@@ -39,13 +39,13 @@ class Main {
         //Text input area
         JLabel firstLabel = new JLabel ("y = ");
         firstLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
-        
+
         slopeInput = new JTextField ();
         slopeInput.setMargin(new Insets(2, 2, 2, 2));
-        
+
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
-        
+
         interceptInput = new JTextField();
         interceptInput.setMargin(new Insets(2, 2, 2, 2));
 
@@ -112,23 +112,52 @@ class Main {
     //Custom Panel
     class MyPanel extends JPanel {
         public void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            
             int width = this.getWidth(), height = this.getHeight();
+            int originX = width/2, originY = height/2;
 
             //Set background to white
-            g.setColor(Color.WHITE);
-            g.fillRect(0, 0, width, height);
+            g2.setColor(Color.WHITE);
+            g2.fillRect(0, 0, width, height);
 
             //Draw Axes
 
             //X-Axis
-            g.setColor(new Color(0, 0, 0));
-            g.drawLine(0, height/2, width, height/2);
+            g2.setColor(new Color(0, 0, 0));
+            g2.drawLine(0, height/2, width, height/2);
+
+            //Markings on the x-axis
+            for (int i = 0; i <= (width/2); i++) {
+                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
+            
+            // Negative x-axis markings
+            for (int i = 0; i >= - (width/2); i--) {
+                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
 
             //Y-Axis
-            g.drawLine(width/2, 0, width/2, height);
+            g2.drawLine(width/2, 0, width/2, height);
+            
+            //Markings on the y-axis
+            for (int i = 0; i <= (height/2); i++) {
+                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
 
+            //Negative y-axis markings
+            for (int i = 0; i >= -(height/2); i--) {
+                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+            }
+            
             //Draw the required line
-            g.drawLine(x1, y1, x2, y2);
+            g2.setStroke (new BasicStroke(2));
+            g2.setColor(Color.GREEN);
+            g2.drawLine(x1, y1, x2, y2);
         }
     }
 }
