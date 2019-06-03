@@ -9,7 +9,7 @@ class Main {
     private MyPanel graph;
     private JPanel inputPanel;
     private JTextField slopeInput, interceptInput;
-    private int x1, y1, x2, y2; //Coordinates of the end points of the graphed line
+    private double x1, y1, x2, y2; //Coordinates of the end points of the graphed line
 
     public static void main (String args[]) {
         new Main().setUpGUI();
@@ -43,10 +43,10 @@ class Main {
         slopeInput = new JTextField ("slope");
         slopeInput.setMargin(new Insets(4, 2, 4, 2));
         slopeInput.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e) {
-                slopeInput.setText("");
-            }
-        });
+                public void mouseClicked(MouseEvent e) {
+                    slopeInput.setText("");
+                }
+            });
 
         JLabel secondLabel = new JLabel (" x + ");
         secondLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
@@ -54,10 +54,10 @@ class Main {
         interceptInput = new JTextField("intercept");
         interceptInput.setMargin(new Insets(4, 2, 4, 2));
         interceptInput.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                interceptInput.setText("");
-            }
-        });
+                public void mouseClicked(MouseEvent e) {
+                    interceptInput.setText("");
+                }
+            });
 
         //Box to hold the input area alongwith the paddings
         Box inputBox = new Box(BoxLayout.X_AXIS);
@@ -85,37 +85,48 @@ class Main {
         frame.add(BorderLayout.SOUTH, inputPanel);
     }
 
-    int[] changeCoords (int tempX1, int tempY1, int tempX2, int tempY2) {
-        int width = graph.getWidth(), height = graph.getHeight();
-        
-        int[] moddedCoordinates = {tempX1 + (width/2), (height/2) - tempY1, tempX2 + (width/2), (height/2) - tempY2};
-        
+    double[] changeCoords (double tempX1, double tempY1,double tempX2,double tempY2) {
+        double width = graph.getWidth(), height = graph.getHeight();
+
+        double[] moddedCoordinates = {tempX1 + (width/2), (height/2) - tempY1, tempX2 + (width/2), (height/2) - tempY2};
+
         return moddedCoordinates;
     }
 
     class ButtonListener implements ActionListener {
         public void actionPerformed (ActionEvent e) {
             try {
-                int m = Integer.parseInt( slopeInput.getText() );
-                int c = Integer.parseInt( interceptInput.getText() );
+                double m = Double.parseDouble( slopeInput.getText() );
+                double c = Double.parseDouble( interceptInput.getText() );
 
                 c *= 10;// So that if c = 10, the graph will plot it at 100 making it look good
 
                 //Coordinates for the end point in normal way
-                int tempY1 = graph.getHeight()/2, tempY2 = - tempY1;
-                int tempX1 = (tempY1 - c)/m;
-                int tempX2 = (tempY2 - c)/m;
+                double tempY1 = graph.getHeight()/2, tempY2 = - tempY1;
 
-                int[] newCoord = Main.this.changeCoords (tempX1, tempY1, tempX2, tempY2);//Change the coordinates for the graph panel
+                //If slope is non-zero 
+                double tempX1 = (tempY1 - c)/m;
+                double tempX2 = (tempY2 - c)/m;
                 
+                if (m == 0) {//For the y = c form
+                    tempX1 = -graph.getWidth()/2;
+                    tempY1 = c;
+                    tempX2 = graph.getWidth()/2;
+                    tempY2 = c;
+                }
+
+                double[] newCoord = Main.this.changeCoords (tempX1, tempY1, tempX2, tempY2);//Change the coordinates for the graph panel
+
                 //Assigning the new coordinates
                 x1 = newCoord[0];
                 y1 = newCoord[1];
                 x2 = newCoord[2];
                 y2 = newCoord[3];
-                
+
                 graph.repaint();
-            } catch (Exception er) {}
+            } catch (Exception er) {
+                er.printStackTrace();
+            }
         }
     }
 
@@ -123,51 +134,51 @@ class Main {
     class MyPanel extends JPanel {
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
-            
-            int width = this.getWidth(), height = this.getHeight();
-            int originX = width/2, originY = height/2;
+
+            double width = this.getWidth(), height = this.getHeight();
+            double originX = width/2, originY = height/2;
 
             //Set background to white
             g2.setColor(Color.WHITE);
-            g2.fillRect(0, 0, width, height);
+            g2.fillRect(0, 0, (int)width, (int)height);
 
             //Draw Axes
 
             //X-Axis
             g2.setColor(new Color(0, 0, 0));
-            g2.drawLine(0, height/2, width, height/2);
+            g2.drawLine(0, (int)height/2, (int)width, (int)height/2);
 
             //Markings on the x-axis
             for (int i = 0; i <= (width/2); i++) {
-                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
-                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+                double[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g2.drawLine((int)coords[0],(int) coords[1],(int) coords[2],(int) coords[3]);
             }
-            
+
             // Negative x-axis markings
             for (int i = 0; i >= - (width/2); i--) {
-                int[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
-                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+                double[] coords = Main.this.changeCoords(i*10, 2, i*10, -2);
+                g2.drawLine((int)coords[0],(int) coords[1],(int) coords[2],(int) coords[3]);
             }
 
             //Y-Axis
-            g2.drawLine(width/2, 0, width/2, height);
-            
+            g2.drawLine((int)width/2, 0,(int) width/2, (int)height);
+
             //Markings on the y-axis
             for (int i = 0; i <= (height/2); i++) {
-                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
-                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+                double[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g2.drawLine((int)coords[0],(int) coords[1],(int) coords[2],(int) coords[3]);
             }
 
             //Negative y-axis markings
             for (int i = 0; i >= -(height/2); i--) {
-                int[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
-                g2.drawLine(coords[0], coords[1], coords[2], coords[3]);
+                double[] coords = Main.this.changeCoords(2, i*10, -2, i*10);
+                g2.drawLine((int)coords[0],(int) coords[1],(int) coords[2],(int) coords[3]);
             }
-            
+
             //Draw the required line
             g2.setStroke (new BasicStroke(2));
             g2.setColor(Color.GREEN);
-            g2.drawLine(x1, y1, x2, y2);
+            g2.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
         }
     }
 }
