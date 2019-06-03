@@ -136,17 +136,18 @@ class Main {
             Graphics2D g2 = (Graphics2D) g;
 
             double width = this.getWidth(), height = this.getHeight();
+            int intWidth = (int)width, intHeight = (int) height; //Integer counterparts of double width and height to save time
             double originX = width/2, originY = height/2;
 
             //Set background to white
             g2.setColor(Color.WHITE);
-            g2.fillRect(0, 0, (int)width, (int)height);
+            g2.fillRect(0, 0, intWidth, intHeight);
 
             //Draw Axes
 
             //X-Axis
             g2.setColor(new Color(0, 0, 0));
-            g2.drawLine(0, (int)height/2, (int)width, (int)height/2);
+            g2.drawLine(0, intHeight/2, intWidth, intHeight/2);
 
             //Markings on the x-axis
             for (int i = 0; i <= (width/2); i++) {
@@ -161,7 +162,7 @@ class Main {
             }
 
             //Y-Axis
-            g2.drawLine((int)width/2, 0,(int) width/2, (int)height);
+            g2.drawLine(intWidth/2, 0,intWidth/2, intHeight);
 
             //Markings on the y-axis
             for (int i = 0; i <= (height/2); i++) {
