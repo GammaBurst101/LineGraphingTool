@@ -19,7 +19,6 @@ class Main {
         //Frame
         frame = new JFrame (" Line Graphing Tool ");
         frame.setSize(475, 590);
-        frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -83,6 +82,8 @@ class Main {
         //Adding everything to the frame
         frame.add(BorderLayout.CENTER, graph);
         frame.add(BorderLayout.SOUTH, inputPanel);
+        
+        frame.setVisible(true);//Setting it visible at the last line so that the app doesn't open with a blank window and require refresh
     }
 
     double[] changeCoords (double tempX1, double tempY1,double tempX2,double tempY2) {
