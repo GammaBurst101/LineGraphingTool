@@ -4,7 +4,7 @@
 
     This desktop app is developed by me to learn how to develop GUI in Java using the Swing package.
 
-    The app is currently under development.
+    The app has completed development and you may download it from my site : https://bit.ly/2F0uPjz
     
     The following are simple details regarding this application:
 
